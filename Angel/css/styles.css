@@ -1,0 +1,357 @@
+/* ========================================== */
+/* IMPORTAR FUENTE MODERNA Y ELEGANTE         */
+/* ========================================== */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* ========================================== */
+/* VARIABLES DE COLOR: "Elegancia Botánica"   */
+/* ========================================== */
+:root {
+    --primario: #4A5D54;       /* Verde Salvia Oscuro: Relajante y muy premium */
+    --primario-suave: #627A6E; /* Salvia medio para efectos al pasar el mouse */
+    --acento: #D4A373;         /* Arena Cálida / Terracota Suave */
+    --acento-hover: #C28D5B;   /* Arena más oscura */
+    
+    /* 🌿 MODIFICADO: Fondo con un tinte verde salvia pastel más notorio pero elegante */
+    --fondo: #EEF4F0;          
+    --tarjeta-bg: #FFFFFF;     /* Blanco puro para hacer destacar los elementos */
+    
+    --texto: #2C3631;          /* Un poco más contrastante para lectura cómoda */
+    --texto-claro: #7A8B82;    /* Gris verdoso */
+    --borde: #DCE6E1;          /* Verde muy pálido para bordes sutiles */
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    color: var(--texto);
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--fondo);
+}
+
+/* ========================================== */
+/* MENÚ LATERAL (Sidebar Minimalista)         */
+/* ========================================== */
+.sidebar {
+    width: 280px; 
+    background-color: var(--tarjeta-bg); 
+    padding: 40px 25px; 
+    position: fixed; 
+    height: 100vh;
+    box-shadow: none; /* Minimalista: Sin sombra pesada */
+    z-index: 10;
+    box-sizing: border-box;
+    border-right: 1px solid var(--borde);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar h2 { 
+    text-align: center; 
+    color: var(--primario); 
+    letter-spacing: 2px; 
+    font-weight: 700;
+    margin-bottom: 50px;
+    font-size: 1.7rem;
+}
+
+.sidebar h2 span { color: var(--acento); }
+
+.menu-item {
+    display: flex; 
+    align-items: center;
+    padding: 14px 20px; 
+    margin-bottom: 12px; 
+    border-radius: 10px; /* Bordes más sutiles */
+    color: var(--texto-claro); 
+    text-decoration: none; 
+    font-weight: 500; 
+    transition: all 0.3s ease;
+}
+
+.menu-item:hover { 
+    background-color: var(--fondo); 
+    color: var(--primario);
+    transform: translateX(5px); 
+}
+
+.menu-item.activo { 
+    background-color: var(--primario); 
+    color: white;
+    box-shadow: 0 4px 15px rgba(74, 93, 84, 0.2);
+}
+
+/* ========================================== */
+/* CONTENIDO PRINCIPAL                        */
+/* ========================================== */
+.main-content {
+    margin-left: 280px; 
+    padding: 50px; 
+    width: calc(100% - 280px);
+    box-sizing: border-box;
+}
+
+h1 { 
+    color: var(--primario); 
+    font-weight: 700; 
+    font-size: 2.4rem;
+    margin-bottom: 35px;
+    letter-spacing: -0.5px;
+}
+
+.dashboard-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 30px; 
+}
+
+/* ========================================== */
+/* TARJETAS (Diseño Limpio)                   */
+/* ========================================== */
+.card {
+    background-color: var(--tarjeta-bg);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(74, 93, 84, 0.05); /* Sombra muy tenue */
+    border: 1px solid var(--tarjeta-bg);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    border-color: var(--borde);
+}
+
+.card h3 {
+    color: var(--primario);
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 1.35rem;
+    border-bottom: 1px dashed var(--borde);
+    padding-bottom: 15px;
+}
+
+/* ========================================== */
+/* FORMULARIOS MODERNOS                       */
+/* ========================================== */
+.form-group { margin-bottom: 22px; }
+
+label { 
+    display: block; 
+    margin-bottom: 8px; 
+    font-weight: 500; 
+    font-size: 0.95rem; 
+    color: var(--texto);
+}
+
+input[type="text"], input[type="number"], input[type="time"], input[type="password"], select, textarea {
+    width: 100%; 
+    padding: 14px 18px; 
+    border: 1.5px solid var(--borde); /* Borde más fino */
+    border-radius: 10px; 
+    font-family: inherit; 
+    background-color: var(--tarjeta-bg); 
+    transition: all 0.3s ease; 
+    color: var(--texto); 
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+input:focus, select:focus {
+    outline: none; 
+    border-color: var(--acento); 
+    box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.15);
+}
+
+/* ========================================== */
+/* BOTONES CREATIVOS Y MINIMALISTAS           */
+/* ========================================== */
+.btn-crear, .btn-primario {
+    background-color: var(--primario); 
+    color: white; 
+    border: none;
+    padding: 14px 28px; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    width: 100%;
+    font-size: 1rem; 
+    font-weight: 500; 
+    margin-top: 20px; 
+    transition: all 0.3s ease;
+}
+
+.btn-crear:hover, .btn-primario:hover { 
+    background-color: var(--primario-suave); 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(74, 93, 84, 0.2);
+}
+
+.btn-cancelar {
+    background-color: transparent; 
+    color: #e74c3c; 
+    border: 1.5px solid #e74c3c;
+    padding: 14px 28px; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    width: 100%;
+    font-size: 1rem; 
+    font-weight: 500; 
+    margin-top: 10px; 
+    transition: all 0.3s ease;
+}
+
+.btn-cancelar:hover { 
+    background-color: #e74c3c; 
+    color: white; 
+}
+
+/* ✨ NUEVO: Botón Explorar Paquetes */
+.btn-explorar {
+    background-color: var(--fondo);
+    color: var(--primario);
+    border: 1.5px dashed var(--primario-suave);
+    padding: 14px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-explorar:hover {
+    background-color: var(--primario);
+    color: white;
+    border-style: solid;
+    transform: translateY(-2px);
+}
+
+/* ✨ NUEVO: Botón Salir Elegante */
+.btn-logout-elegante {
+    margin-top: auto;
+    background: transparent;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+    padding: 12px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-logout-elegante:hover {
+    background: #e74c3c;
+    color: white;
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.2);
+}
+
+/* ========================================== */
+/* ✨ NUEVO: CATÁLOGO VISUAL EN CUADRÍCULA    */
+/* ========================================== */
+.modal-catalogo {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(44, 54, 49, 0.5); backdrop-filter: blur(5px);
+    display: none; justify-content: center; align-items: center; z-index: 2000;
+}
+
+.modal-catalogo-content {
+    background: var(--tarjeta-bg); width: 90%; max-width: 950px; max-height: 85vh;
+    border-radius: 20px; padding: 40px; overflow-y: auto; position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+
+.btn-cerrar-modal {
+    position: absolute; top: 20px; right: 25px; background: none; border: none;
+    font-size: 2rem; color: var(--texto-claro); cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.btn-cerrar-modal:hover { color: var(--primario); transform: rotate(90deg); }
+
+.grid-paquetes {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px;
+}
+
+.card-paquete-creativo {
+    background: var(--tarjeta-bg); border: 1px solid var(--borde); border-radius: 16px; 
+    overflow: hidden; transition: all 0.3s ease; display: flex; flex-direction: column;
+}
+
+.card-paquete-creativo:hover {
+    transform: translateY(-5px); border-color: var(--acento); 
+    box-shadow: 0 10px 25px rgba(212, 163, 115, 0.15);
+}
+
+.card-img-container {
+    position: relative; height: 170px; width: 100%; background: var(--fondo);
+}
+
+.card-img-container img { width: 100%; height: 100%; object-fit: cover; }
+
+.card-precio-tag {
+    position: absolute; bottom: 12px; right: 12px; background: var(--primario); color: white;
+    padding: 6px 14px; border-radius: 20px; font-weight: 600; font-size: 0.9rem;
+}
+
+.card-info { padding: 20px; text-align: center; flex: 1; display: flex; flex-direction: column; }
+
+.card-desc {
+    color: var(--texto-claro); font-size: 0.85rem; margin-bottom: 20px; text-align: left;
+    height: 60px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical;
+}
+
+/* ========================================== */
+/* CALENDARIO Y SEMÁFORO DE HORARIOS          */
+/* ========================================== */
+.calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; font-weight: 600; color: var(--primario); font-size: 1.2rem; }
+.btn-nav { background-color: var(--fondo); color: var(--primario); border: none; border-radius: 10px; width: 40px; height: 40px; cursor: pointer; transition: 0.3s; font-weight: bold; font-size: 1.2rem;}
+.btn-nav:hover { background-color: var(--acento); color: white; transform: scale(1.05); }
+
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; margin-top: 20px;}
+.day-name { font-weight: 600; color: var(--texto-claro); font-size: 0.85rem; padding-bottom: 10px; }
+.day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; font-weight: 500; font-size: 0.95rem; border: 1px solid transparent; background: var(--tarjeta-bg); }
+
+.dia-vacio { cursor: default; background: transparent; }
+.day:hover:not(.dia-vacio) { border-color: var(--acento); }
+.dia-seleccionado { border: 2px solid var(--primario); transform: scale(1.05); font-weight: 700; box-shadow: 0 5px 15px rgba(74, 93, 84, 0.15); color: var(--primario); }
+
+.dia-disponible { background-color: #E8F0EA; color: var(--primario); border: 1px solid #D1E0D7; } 
+.dia-ocupado { background-color: #FCE8E8; color: #DC2626; border: 1px solid #FCA5A5; opacity: 0.8;} 
+.dia-parcial { background-color: #FEF3C7; color: #B8860B; border: 1px solid #FDE68A; } 
+
+.horarios-ocupados-msg { font-size: 0.9rem; color: #B8860B; margin-top: 15px; padding: 15px; background: #FEF3C7; border-radius: 10px; border: 1px dashed #FDE68A; display: none; }
+
+/* ========================================== */
+/* TARJETAS DE ARTÍCULOS EXTRA                */
+/* ========================================== */
+.extras-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; margin-top: 15px; }
+
+.extra-card { background: var(--tarjeta-bg); border: 1px solid var(--borde); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; align-items: center; transition: all 0.3s ease; }
+.extra-card:hover { border-color: var(--primario-suave); box-shadow: 0 5px 15px rgba(74, 93, 84, 0.08); }
+
+.extra-info { text-align: center; margin-bottom: 12px; }
+.extra-info h4 { margin: 0 0 5px 0; color: var(--primario); font-size: 0.95rem; }
+.badge-stock-mini { font-size: 0.75rem; background: var(--fondo); color: var(--texto-claro); padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+
+.extra-controls { display: flex; align-items: center; justify-content: center; background: var(--fondo); border-radius: 8px; padding: 5px; width: 100%; }
+.btn-qty { background: none; border: none; color: var(--primario); font-size: 1.2rem; cursor: pointer; width: 30px; height: 30px; border-radius: 50%; transition: background 0.2s; }
+.btn-qty:hover { background: var(--borde); }
+.extra-controls input { width: 40px !important; text-align: center; border: none !important; padding: 0 !important; font-size: 1rem !important; font-weight: 600; color: var(--texto) !important; background: transparent !important; box-shadow: none !important; }
+
+/* ========================================== */
+/* ALERTA GLOBAL (MODAL)                      */
+/* ========================================== */
+.custom-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(44, 54, 49, 0.4); display: none; align-items: center; justify-content: center; z-index: 3000; backdrop-filter: blur(5px); }
+.custom-alert-box { background-color: var(--tarjeta-bg); padding: 40px; border-radius: 20px; text-align: center; max-width: 380px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); }
+.alert-icon { font-size: 45px; margin-bottom: 15px; }
+.alert-title { font-size: 1.4rem; color: var(--primario); margin-bottom: 10px; font-weight: 600; }
+.alert-msg { color: var(--texto-claro); margin-bottom: 25px; font-size: 0.95rem; line-height: 1.5; }

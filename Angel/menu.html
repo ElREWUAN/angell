@@ -1,0 +1,126 @@
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Menu - Creaciones Angelle's</title>
+        
+        <link rel="stylesheet" href="css/styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+
+        <div class="sidebar">
+            <h2>ANGELLE´S</h2>
+            <a href="menu.html" class="menu-item activo">📊 Menu</a>
+            <a href="inventario.html" class="menu-item">📦 Inventario</a>
+            <a href="cotizaciones.html" class="menu-item">💰 Cotizaciones</a>
+            
+            <button onclick="cerrarSesion()" class="btn-logout-elegante">
+                <span>🚪</span> Cerrar Sesión
+            </button>
+        </div>
+
+        <div class="main-content">
+            <h1>Agenda de Eventos</h1>
+
+            <div class="dashboard-grid">
+                
+                <div class="card" id="contenedor-calendario">
+                    <div class="calendar-header">
+                        <button class="btn-nav" onclick="cambiarMes(-1)">&#8592;</button>
+                        <span id="mes-anio-display">Abril 2026</span>
+                        <button class="btn-nav" onclick="cambiarMes(1)">&#8594;</button>
+                    </div>
+                    
+                    <div class="calendar-grid" id="calendario-js">
+                    </div>
+                    
+                    <div style="margin-top: 25px; display: flex; gap: 15px; justify-content: center; font-size: 0.85rem; font-weight: 600;">
+                        <span style="color: var(--primario);">🟩 Disponible</span>
+                        <span style="color: #B8860B;">🟧 Parcial</span>
+                        <span style="color: #DC2626;">🟥 Ocupado</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 id="titulo-form-evento">✨ Crear Nuevo Evento</h3>
+                    
+                    <div class="form-group">
+                        <label>Fecha Seleccionada</label>
+                        <input type="text" id="ev-fecha" readonly placeholder="Selecciona un día en el calendario">
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label>Hora de Inicio</label>
+                            <input type="time" id="ev-hora-inicio">
+                        </div>
+                        <div class="form-group">
+                            <label>Hora de Fin</label>
+                            <input type="time" id="ev-hora-fin">
+                        </div>
+                    </div>
+
+                    <div id="msg-horarios-ocupados" class="horarios-ocupados-msg"></div>
+
+                    <div class="form-group">
+                        <label>Nombre del Cliente</label>
+                        <input type="text" id="ev-cliente" placeholder="Ej. Familia Rodríguez">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Seleccionar Paquete Base</label>
+                        <input type="hidden" id="ev-paquete" value="">
+                        
+                        <button type="button" class="btn-explorar" onclick="abrirCatalogoVisual()">✨ Explorar Paquetes</button>
+                        
+                        <div id="display-paquete-elegido" style="display: none; margin-top: 10px; padding: 12px; background: var(--fondo); border-radius: 8px; border-left: 4px solid var(--primario); font-weight: 500;"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Artículos Extra (Disponibilidad basada en Inventario)</label>
+                        <div class="extras-grid" id="ev-extras-container">
+                        </div>
+                    </div>
+
+                    <div class="contenedor-botones">
+                        <button class="btn-crear" id="btn-guardar-evento" onclick="guardarEvento()" style="width: 100%;">Agendar Evento</button>
+                        
+                        <div class="acciones-edicion" id="grupo-editar-evento" style="display: none; width: 100%; gap: 10px;">
+                            <button class="btn-crear" style="margin-top: 0; flex: 1;" onclick="guardarEvento()">Actualizar</button>
+                            <button class="btn-cancelar" style="margin-top: 0; flex: 1; background: #e74c3c; color: white; border: none; border-radius: 8px;" onclick="eliminarEvento()">Cancelar Evento</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="overlay-catalogo" id="overlayCatalogo"></div>
+
+        <div id="modal-catalogo-visual" class="modal-catalogo">
+            <div class="modal-catalogo-content">
+                <button class="btn-cerrar-modal" onclick="cerrarCatalogoVisual()">&times;</button>
+                <h2 style="color: var(--primario); margin-top: 0;">Catálogo de Paquetes</h2>
+                <p style="color: var(--texto-claro); margin-bottom: 25px;">Selecciona el paquete ideal para este evento.</p>
+                
+                <div id="grid-paquetes-visual" class="grid-paquetes"></div>
+            </div>
+        </div>
+        <div class="custom-alert-overlay" id="mi-alerta">
+            <div class="custom-alert-box">
+                <div class="alert-icon" id="alerta-icono">🔔</div>
+                <div class="alert-title" id="alerta-titulo">Atención</div>
+                <div class="alert-msg" id="alerta-mensaje">Mensaje aquí</div>
+                <button class="btn-primario" style="margin-top: 10px;" onclick="cerrarAlerta()">Aceptar</button>
+            </div>
+        </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="js/supabase.js"></script>
+        <script src="js/app.js"></script>
+        
+    </body>
+    </html>

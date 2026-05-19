@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizaciones - Creaciones Angelle's</title>
+    
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .recibo-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+            border-top: 8px solid var(--acento);
+            position: relative;
+        }
+        
+        .recibo-header {
+            text-align: center;
+            border-bottom: 2px dashed var(--borde);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .recibo-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: var(--texto);
+        }
+
+        .recibo-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid var(--primario);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primario);
+        }
+
+        .recibo-saldo {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #DC2626; /* Rojo suave para destacar lo que se debe */
+        }
+
+        .btn-secundario {
+            background: transparent;
+            color: var(--primario);
+            border: 2px solid var(--primario);
+            padding: 12px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        .btn-secundario:hover {
+            background: var(--primario);
+            color: white;
+        }
+
+        /* MAGIA PARA IMPRESIÓN: Solo se imprime el recibo */
+        @media print {
+            body * { visibility: hidden; }
+            .recibo-card, .recibo-card * { visibility: visible; }
+            .recibo-card { 
+                position: absolute; 
+                left: 0; 
+                top: 0; 
+                width: 100%; 
+                border: none; 
+                box-shadow: none; 
+            }
+            .btn-crear, .btn-secundario { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>ANGELLE´S</h2>
+        <a href="menu.html" class="menu-item">📊 Dashboard</a>
+        <a href="inventario.html" class="menu-item">📦 Inventario</a>
+        <a href="cotizaciones.html" class="menu-item activo">💰 Cotizaciones</a>
+        
+        <button onclick="cerrarSesion()" class="btn-logout-elegante">
+            <span>🚪</span> Cerrar Sesión
+        </button>
+    </div>
+
+    <div class="main-content">
+        <h1>Generar Nueva Cotización</h1>
+
+        <div class="dashboard-grid">
+            
+            <div class="card">
+                <h3>📝 Datos de la Cotización</h3>
+                
+                <div class="form-group">
+                    <label>Nombre del Cliente</label>
+                    <input type="text" id="cot-cliente" placeholder="Ej. María Fernanda López" oninput="actualizarRecibo()">
+                </div>
+
+                <div class="form-group">
+                    <label>Fecha del Evento (Opcional)</label>
+                    <input type="date" id="cot-fecha" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--borde);" onchange="actualizarRecibo()">
+                </div>
+                
+                <div class="form-group">
+                    <label>Seleccionar Paquete Base</label>
+                    <select id="cot-paquete" onchange="actualizarRecibo()">
+                        <option value="">-- Sin paquete --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Agregar Artículos Extra</label>
+                    <div class="extras-grid" id="cot-extras-container">
+                        </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Anticipo / Pago Inicial ($)</label>
+                    <input type="number" id="cot-anticipo" placeholder="Ej. 1000" value="0" min="0" oninput="actualizarRecibo()">
+                </div>
+            </div>
+
+            <div class="card recibo-card">
+                <div class="recibo-header">
+                    <h3 style="margin-bottom: 5px; color: var(--primario);">CREACIONES ANGELLE'S</h3>
+                    <p style="margin: 0; font-size: 0.85rem; color: var(--texto-claro);">Cotización de Evento</p>
+                    <p style="margin: 10px 0 0 0; font-size: 0.95rem;"><strong>Cliente:</strong> <span id="resumen-cliente">---</span></p>
+                    <p style="margin: 5px 0 0 0; font-size: 0.95rem;"><strong>Fecha:</strong> <span id="resumen-fecha">---</span></p>
+                </div>
+
+                <div id="resumen-detalles" style="min-height: 150px;">
+                    <div style="text-align: center; color: var(--texto-claro); font-style: italic; padding: 20px;">
+                        Selecciona un paquete o artículos para ver el resumen.
+                    </div>
+                </div>
+
+                <div class="recibo-total">
+                    <span>TOTAL:</span>
+                    <span id="resumen-total">$0.00</span>
+                </div>
+                <div class="recibo-item" style="margin-top: 10px; font-weight: 600;">
+                    <span>Anticipo Pagado:</span>
+                    <span id="resumen-anticipo" style="color: #059669;">-$0.00</span>
+                </div>
+                <div class="recibo-saldo">
+                    <span>SALDO PENDIENTE:</span>
+                    <span id="resumen-saldo">$0.00</span>
+                </div>
+
+                <button class="btn-crear" onclick="guardarCotizacion()">Guardar Cotización</button>
+                <button class="btn-secundario" onclick="window.print()">🖨️ Imprimir PDF</button>
+            </div>
+        </div>
+
+        <h2 style="color: var(--primario); margin-top: 50px; font-size: 1.5rem; border-bottom: 2px solid var(--acento); padding-bottom: 10px;">Historial de Cotizaciones Guardadas</h2>
+        <div class="card" style="margin-top: 20px;">
+            <div class="table-container">
+                <table class="glass-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Fecha Evento</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-cotizaciones">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="custom-alert-overlay" id="mi-alerta">
+        <div class="custom-alert-box">
+            <div class="alert-icon" id="alerta-icono">🔔</div>
+            <div class="alert-title" id="alerta-titulo">Atención</div>
+            <div class="alert-msg" id="alerta-mensaje">Mensaje aquí</div>
+            <button class="btn-alert" onclick="cerrarAlerta()">Aceptar</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        window.onload = async function() {
+            await cargarDatosDesdeSupabase();
+            if (typeof cargarDatosCotizacion === 'function') cargarDatosCotizacion();
+            if (typeof renderizarHistorialCotizaciones === 'function') renderizarHistorialCotizaciones();
+        };
+    </script>
+</body>
+</html>
